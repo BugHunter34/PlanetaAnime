@@ -1,17 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
-import Hentai from './pages/Hentai';
+import '@picocss/pico/css/pico.min.css'; 
 
 function App() {
   return (
     <Router>
-      <header>
+      <nav>
         <Link to="/">Home</Link>
-      </header>
+      </nav>
       
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/hentai" element={<Hentai />} />
         
       </Routes>
     </Router>
