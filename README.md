@@ -1,16 +1,16 @@
-### lanetaAnime or smth
+## Planeta Anime or smth
+### By: Govis & Andhyy
 
 **run with:**
 ```
-cd client -> 
+cd client:
 npm i
 npm run dev
 ```
 ```
-cd server -> 
+cd server:
 npm i
 npm start
-> (npm start rn useless -> we won't use node server for now)
+* (npm start rn useless -> we won't use node server for now) *
 ```
-
 **python in server -> uvicorn server:app --host 0.0.0.0 --port 6000**
