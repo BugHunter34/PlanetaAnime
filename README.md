@@ -1,0 +1,10 @@
+PlanetaAnime or smth
+start with
+cd client -> npm i
+          -> npm run dev
+cd ..
+cd server -> npm i
+          -> npm start
+          (npm start rn useless -> we won't use node server for now)
+
+python in server -> uvicorn server:app --host 0.0.0.0 --port 6000
