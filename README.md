@@ -1,13 +1,16 @@
-PlanetaAnime or smth
+### lanetaAnime or smth
 
-run with:
+**run with:**
+```
 cd client -> 
 npm i
 npm run dev
-
+```
+```
 cd server -> 
 npm i
 npm start
-(npm start rn useless -> we won't use node server for now)
+> (npm start rn useless -> we won't use node server for now)
+```
 
-python in server -> uvicorn server:app --host 0.0.0.0 --port 6000
+**python in server -> uvicorn server:app --host 0.0.0.0 --port 6000**
