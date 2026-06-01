@@ -15,4 +15,4 @@ npm start
 ```
 *(npm start rn useless -> we won't use node server for now)*
 
-**python in server -> ```uvicorn server:app --host 0.0.0.0 --port 6000```**
+**python in server -> ```uvicorn server:app --host 0.0.0.0 --port 8000```**

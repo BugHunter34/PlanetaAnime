@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import '@picocss/pico/css/pico.min.css'; 
 import './index.css';
 import Header from './components/Header.jsx'
+import AdminLogin from './pages/AdminLogin.jsx';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        
+        <Route path="/admin" element={<AdminLogin />} />
       </Routes>
     </Router>
   );
