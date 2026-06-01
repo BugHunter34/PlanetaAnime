@@ -5,7 +5,7 @@ export default function Home() {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
   const API_URL = 'http://localhost:6000';
-
+  
   useEffect(() => {
     fetch(`${API_URL}/`)
       .then(res => res.ok ? setStatus('Server Online') : setStatus('Server Offline'))
