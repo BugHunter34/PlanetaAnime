@@ -1,15 +1,18 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
+import Hentai from './pages/Hentai';
 
 function App() {
   return (
     <Router>
-      <nav>
+      <header>
         <Link to="/">Home</Link>
-      </nav>
+      </header>
       
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/hentai" element={<Hentai />} />
+        
       </Routes>
     </Router>
   );

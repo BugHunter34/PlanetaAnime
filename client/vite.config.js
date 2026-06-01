@@ -1,7 +1,30 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [tailwindcss(), react()],
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
+    strictPort: true, 
+    proxy: {
+      '/api': {
+        target: 'http://localhost:6000',
+        changeOrigin: true,
+      },
+      '/media-api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/media-api/, '/api')
+      }
+    },
+
+    allowedHosts: [
+      'localhost',
+      'andhyy.com',
+      'planetaanime.andhyy.com',
+      'api.planetaanime.andhyy.com'
+    ],
+  },
 })
