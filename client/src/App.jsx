@@ -4,6 +4,7 @@ import '@picocss/pico/css/pico.min.css';
 import './index.css';
 import Header from './components/Header.jsx'
 import AdminLogin from './pages/AdminLogin.jsx';
+import AnimePage from './pages/AnimePage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/anime/:id" element={<AnimePage />} />
       </Routes>
     </Router>
   );

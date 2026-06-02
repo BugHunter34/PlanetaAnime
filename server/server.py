@@ -9,6 +9,8 @@ from bson.errors import InvalidId
 import os
 import dotenv
 import re
+from bson import ObjectId
+
 
 dotenv.load_dotenv()
 
@@ -49,6 +51,7 @@ class Anime(BaseModel):
     desc: str
     studio: str
     series: List[Series] = []
+    imageUrl: str
 
 class SearchQuery(BaseModel):
     query: str
@@ -90,6 +93,15 @@ async def verify_admin(authorization: str = Header(None)):
         raise HTTPException(status_code=401, detail="Unauthorized token")
     
     return True
+
+@app.get("/anime/{anime_id}")
+async def get_anime(anime_id: str):
+    doc = await collection.find_one({"_id": ObjectId(anime_id)})
+    if not doc:
+        raise HTTPException(status_code=404, detail="Anime not found")
+    
+    doc["_id"] = str(doc["_id"])
+    return doc
 
 @app.post("/search")
 async def search_anime(search: SearchQuery):
