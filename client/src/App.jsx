@@ -5,6 +5,7 @@ import './index.css';
 import Header from './components/Header.jsx'
 import AdminLogin from './pages/AdminLogin.jsx';
 import AnimePage from './pages/AnimePage';
+import Test from './pages/Test.jsx';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/anime/:id" element={<AnimePage />} />
+        <Route path="/try-brewing-coffee" element={<Test />} />
       </Routes>
     </Router>
   );

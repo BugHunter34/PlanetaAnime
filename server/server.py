@@ -154,3 +154,7 @@ async def add_episode(anime_id: str, series_number: int, episode: Episode):
     )
     return {"status": "ok"}
 
+@app.get("/brew-coffee")
+async def try_brewing():
+    raise HTTPException(status_code=418, detail="Failed to brew coffee")
+
