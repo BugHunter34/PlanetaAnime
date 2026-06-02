@@ -74,7 +74,7 @@ export default function AnimeCard({ anime, onUpdate }) {
 
       <div className="grid">
         {/* ADD SERIES */}
-        <form onSubmit={handleAddSeries} style={{ padding: '1rem', background: '#ff00ff', borderRadius: '8px' }}>
+        <form onSubmit={handleAddSeries} style={{ padding: '1rem', background: '#6c44c2', borderRadius: '8px' }}>
           <h4>Add Season</h4>
           <input type="number" placeholder="Season Number" value={seriesNum} onChange={e => setSeriesNum(e.target.value)} required />
           <input type="text" placeholder="Season Title" value={seriesTitle} onChange={e => setSeriesTitle(e.target.value)} required />
@@ -82,7 +82,7 @@ export default function AnimeCard({ anime, onUpdate }) {
         </form>
 
         {/* ADD EPISODE */}
-        <form onSubmit={handleAddEpisode} style={{ padding: '1rem', background: '#ff00ff', borderRadius: '8px' }}>
+        <form onSubmit={handleAddEpisode} style={{ padding: '1rem', background: '#6c44c2', borderRadius: '8px' }}>
           <h4>Add Episode</h4>
           <select value={epSeriesTarget} onChange={e => setEpSeriesTarget(e.target.value)}>
             {anime.series?.map(s => (

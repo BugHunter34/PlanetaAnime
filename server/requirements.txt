@@ -3,3 +3,4 @@ pydantic
 motor
 uvicorn
 dotenv
+re

@@ -8,6 +8,7 @@ from bson import ObjectId
 from bson.errors import InvalidId
 import os
 import dotenv
+import re
 
 dotenv.load_dotenv()
 
@@ -64,6 +65,7 @@ def echo_text(item: Item):
 
 @app.post("/admin/login")
 async def admin_login(req: LoginRequest):
+    
     ADMIN_PASSWORD = os.getenv("ADMIN_PASS", "Fall")
     
     if req.password == ADMIN_PASSWORD:
@@ -91,9 +93,16 @@ async def verify_admin(authorization: str = Header(None)):
 
 @app.post("/search")
 async def search_anime(search: SearchQuery):
+    escaped_query = re.escape(search.query) # Pass pure string to prevent ReDos (Denial of Service for DB)
+    
+    if not escaped_query:
+        return []
 
-    cursor = collection.find({"name": {"$regex": search.query, "$options": "i"}})
-    results = await cursor.to_list(length=100)
+    cursor = collection.find(
+        {"name": {"$regex": f"^{escaped_query}", "$options": "i"}}
+    ).limit(5) # Top 5 anime
+    
+    results = await cursor.to_list(length=5)
 
     for doc in results:
         doc["_id"] = str(doc["_id"])
