@@ -11,6 +11,7 @@ export default function Home() {
   const [newName, setNewName] = useState('');
   const [newDesc, setNewDesc] = useState('');
   const [newStudio, setNewStudio] = useState('');
+  const [newImgUrl, setNewImgUrl] = useState('');
 
   useEffect(() => {
     const checkServerStatus = async () => {
@@ -52,7 +53,8 @@ export default function Home() {
           name: newName,
           desc: newDesc,
           studio: newStudio,
-          series: []
+          series: [],
+          imageUrl: newImgUrl,
         })
       });
       const data = await res.json();
@@ -61,25 +63,50 @@ export default function Home() {
       setNewName('');
       setNewDesc('');
       setNewStudio('');
+      setNewImgUrl('');
     } catch (error) {
       console.error("Creation failed:", error);
     } finally {
       setIsCreating(false);
     }
   };
-
-  return (
-    <div>
+return (
+    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <h1>Status: {status}</h1>
       <input value={input} onChange={(e) => setInput(e.target.value)} />
       <button onClick={handleSubmit}>Send</button>
       <p>Response: {response}</p>
 
-            {/* CREATE NEW ANIME SECTION */}
-      <section style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc', borderRadius: '8px' }}>
-        <h3>Add New Anime</h3>
-        <form onSubmit={handleCreate}>
-          <div className="grid">
+      {/* CREATE NEW ANIME SECTION */}
+      <section style={{ marginTop: '2rem', padding: '1.5rem', border: '1px solid #ccc', borderRadius: '8px', display: 'flex', gap: '2rem' }}>
+        
+        {/* LEFT COLUMN: Image Preview & URL Input */}
+        <div style={{ display: 'flex', flexDirection: 'column', width: '220px', flexShrink: 0, gap: '1rem' }}>
+          {newImgUrl ? (
+            <img 
+              src={newImgUrl} 
+              alt="Cover Preview" 
+              style={{ width: '100%', height: '310px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #666' }} 
+            />
+          ) : (
+            <div style={{ width: '100%', height: '310px', border: '2px dashed #ccc', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888', textAlign: 'center', padding: '1rem' }}>
+              Image Preview
+            </div>
+          )}
+          <input 
+            type="url" 
+            placeholder="Cover Image URL" 
+            value={newImgUrl} 
+            onChange={(e) => setNewImgUrl(e.target.value)} 
+            style={{ width: '100%' }}
+          />
+        </div>
+
+        {/* RIGHT COLUMN: Anime Details Form */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <h3 style={{ marginTop: 0, marginBottom: '1rem' }}>Add New Anime</h3>
+          
+          <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
             <input 
               type="text" 
               placeholder="Anime Name (e.g., Tsukimichi)" 
@@ -87,6 +114,7 @@ export default function Home() {
               onChange={(e) => setNewName(e.target.value)} 
               required 
             />
+            
             <input 
               type="text" 
               placeholder="Studio (e.g., C2C)" 
@@ -94,17 +122,21 @@ export default function Home() {
               onChange={(e) => setNewStudio(e.target.value)} 
               required 
             />
-          </div>
-          <textarea 
-            placeholder="Description..." 
-            value={newDesc} 
-            onChange={(e) => setNewDesc(e.target.value)} 
-            required 
-          />
-          <button type="submit" aria-busy={isCreating} className="secondary">
-            Save to Database
-          </button>
-        </form>
+            
+            <textarea 
+              placeholder="Description..." 
+              value={newDesc} 
+              onChange={(e) => setNewDesc(e.target.value)} 
+              required 
+              style={{ flex: 1, minHeight: '150px', resize: 'vertical' }}
+            />
+            
+            <button type="submit" aria-busy={isCreating} className="secondary" style={{ marginTop: 'auto' }}>
+              Save to Database
+            </button>
+          </form>
+        </div>
+
       </section>
     </div>
   );
