@@ -23,7 +23,8 @@ export default defineConfig({
       'localhost',
       'andhyy.com',
       'planetaanime.andhyy.com',
-      'api.planetaanime.andhyy.com'
+      'api-planetaanime.andhyy.com',
+      'cdn.andhyy.com'
     ],
   },
 })

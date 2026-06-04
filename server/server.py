@@ -13,6 +13,8 @@ import tempfile
 import boto3
 from fastapi import FastAPI, HTTPException, Depends, Header, UploadFile, File, Form
 from typing import List, Optional
+from fastapi.responses import StreamingResponse
+import httpx
 
 dotenv.load_dotenv()
 
@@ -20,9 +22,17 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
+    allow_origins=[
+        "https://planetaanime.andhyy.com",
+        "https://api-planetaanime.andhyy.com",
+        "andhyy.com",
+        "http://localhost:5173",  
+        "http://localhost:8000", 
+    ],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    allow_credentials=True,
+    max_age=600,
 )
 
 
@@ -83,6 +93,29 @@ def read_root():
 @app.post("/echo")
 def echo_text(item: Item):
     return {"status": "ok", "received": item.text}
+
+
+@app.get("/proxy-subtitle")
+async def proxy_subtitle(url: str):
+    """
+    Proxy subtitle files to avoid CORS issues.
+    Usage: /proxy-subtitle?url=https://cdn.andhyy.com/videos/.../sub_cz.vtt
+    """
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as client:
+            response = await client.get(url, follow_redirects=True)
+            
+            return StreamingResponse(
+                iter([response.content]),
+                status_code=response.status_code,
+                media_type="text/vtt",
+                headers={
+                    "Content-Disposition": "inline",
+                    "Cache-Control": "public, max-age=86400"  # Cache for 1 day
+                }
+            )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch subtitle: {str(e)}")
 
 @app.post("/admin/login")
 async def admin_login(req: LoginRequest):

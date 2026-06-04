@@ -6,3 +6,4 @@ dotenv
 re
 bson
 boto3
+httpx
